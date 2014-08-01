@@ -1,0 +1,54 @@
+<htmL>
+<head>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+
+<body>
+<span id="links"></span>
+
+<body>
+
+<script src="http://cdn.jsdelivr.net/mobile-detect.js/0.4.0/mobile-detect.min.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+<script>
+$.fn.addr2url=function(addr,google,appleClass,googleClass) {
+    var md = window.navigator.userAgent
+    addr=addr.replace(/ /g,'+')
+    console.log(md)
+    if (!appleClass) {
+        appleClass='btn'
+    }
+    
+    if (!googleClass) {
+        googleClass='btn btn-success'
+    }
+    
+    if(md.match(/Macintosh/g)){
+        $(this).append('<a class="'+appleClass+'" href="http:maps.apple.com/?daddr='+addr+'">Directions Via Apple Maps</a> OSX')
+        if (google==true) {
+            $(this).append('<a class="'+googleClass+'" href="http:maps.google.com/?daddr='+addr+'">Directions Via Google Maps</a>')
+        }
+    }
+    else if(!md.match(/Apple/g)||!md.match(/Mobile/g)){
+        $(this).append('<a class="'+googleClass+'" href="http:maps.google.com/?daddr='+addr+'">Directions Via Google Maps</a>')
+        return
+    }
+    
+    if (md.match(/Apple/g)) {
+        $(this).append('<a class="'+appleClass+'" href="http:maps.apple.com/?daddr='+addr+'">Directions Via Apple Maps</a>')
+        if (google==true) {
+            $(this).append('<a class="'+googleClass+'" href="comgooglemaps://?daddr='+addr+'">Directions Via Google Maps</a>')
+        }
+    }
+    else{
+        $(this).append('<a class="'+googleClass+'" href="comgooglemaps://?daddr='+addr+'">Directions Via Google Maps</a>')
+    }
+
+};
+
+$('#links').addr2url("6779 Mitchell Ave. Riverside CA 92505",true)
+</script>
+</html>
